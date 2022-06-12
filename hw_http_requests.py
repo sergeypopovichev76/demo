@@ -23,7 +23,10 @@ class YaUploader:
         """Метод запрашивает ссылку для загрузки"""
         params = {'path': file_path, 'overwrite': 'true'}
         responce = requests.get(self.upload_url, params=params, headers=self.header)
-        return responce.json()
+        if responce.status_code == 200:
+            return responce.json()
+        else:
+            print('Ошибка при запрашивании ссылки на загрузку файла')
 
     def upload(self, file_path: str):
         """Метод загружает файл на яндекс диск"""
